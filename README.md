@@ -4,7 +4,7 @@ Create a fresh installation with tinycorelinux and resize the second partition.
 
 Then boot your raspi and ssh into it:
 ```
-ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@192.168.0.17
+ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no tc@<ip_of_raspi>
 ```
 
 Download and execute the installer:
