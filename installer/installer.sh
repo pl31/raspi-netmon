@@ -3,7 +3,7 @@
 echo "---> Running netmon installer"
 
 echo "---> Install required packages"
-tce-load -wi git iproute2 python py-smbus
+tce-load -wi git iproute2 python py-smbus busybox-httpd tcpdump libcap-ng libnl
 
 echo "---> Freshly clone repository to home folder"
 rm -rf /home/tc/raspi-netmon/
