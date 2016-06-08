@@ -1,1 +1,1 @@
-import .liquidcrystal_i2c
+from .liquidcrystal_i2c import LiquidCrystal_I2C
