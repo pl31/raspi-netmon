@@ -15,3 +15,6 @@ grep -q "# c0f40bf8" $BOOTLOCAL || echo '/home/tc/raspi-netmon/netmon/start.sh	#
 
 echo "---> backup to SD-Card"
 filetool.sh -b
+
+echo
+echo "PLEASE REBOOT DEVICE"
