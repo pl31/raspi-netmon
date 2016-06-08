@@ -23,6 +23,9 @@ class lcd:
  Port definitions
  addr, en,rw,rs,d4,d5,d6,d7,bl
  0x27, 2, 1, 0, 4, 5, 6, 7, 3
+ 
+ Find some documentation here:
+ http://www.exp-tech.de/doc/lcd/1602/LMB162AFC-Manual-Rev0.1.pdf
  '''
  def __init__(self, addr, port):
   self.lcd_device = i2c_device(addr, port)
@@ -37,18 +40,14 @@ class lcd:
   sleep(0.05)
   self.lcd_strobe()
   sleep(0.05)
-  self.lcd_write(0x28)
-  sleep(0.05)
-  self.lcd_write(0x08)
-  sleep(0.05)
-  self.lcd_write(0x01)
-  sleep(0.05)
-  self.lcd_write(0x06)
-  sleep(0.05)
-  self.lcd_write(0x0C)
-  sleep(0.05)
-  self.lcd_write(0x0F)
-  sleep(0.05)
+  
+  self.lcd_write(0x28) # 4bit, 2line display
+  #self.lcd_write(0x08) # display off
+  self.lcd_write(0x01) # clear display
+  #self.lcd_write(0x06) # screen shifting
+  self.lcd_write(0x04) # screen shifting
+  self.lcd_write(0x0C) # display on
+  #self.lcd_write(0x0F) # display and cursor on
 
 #wrapper to self.lcd_device.write fir backlight control
  def lcd_device_writebl(self,value):
