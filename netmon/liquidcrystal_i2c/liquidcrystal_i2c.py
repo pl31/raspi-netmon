@@ -116,10 +116,15 @@ class LiquidCrystal_I2C:
         self._command(LiquidCrystal_I2C._LCD_SETDDRAMADDR | \
             (col + row_offsets[row]))
 
-
+    # print string at cursor
     def printstr(self, value):
         for c in value:
             self._send(ord(c), 0x01)
+
+    # print line starting at linenr #0
+    def printline(self, linenr, value):
+        self.setCursor(0, linenr)
+        self.printstr(value)
 
     ### mid level commands, for sending data/cmds ###
 
