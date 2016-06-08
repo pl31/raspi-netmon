@@ -1,10 +1,10 @@
 #!/usr/bin/env python
 
-import pylcdlib
 import time
 import sys
 import subprocess
 import re
+import liquidcrystal_i2c
 
 def get_rx_packets(interface):
   f_name = '/sys/class/net/{}/statistics/rx_packets'.format(interface)
@@ -27,14 +27,9 @@ def get_ip(interface):
     return matches[0]
   return '-.-.-.-'
 
-lcd = pylcdlib.lcd(0x27,1)
-lcd.lcd_clear()
-time.sleep(.1)
-lcd.lcd_write(0x01)
-time.sleep(.1)
+lcd = liquidcrystal_i2c.LiquidCrystal_I2C(0x27,1)
 
 interface = 'eth0'
-
 last_rx_packets = get_rx_packets(interface)
 time.sleep(1)
 
@@ -49,6 +44,6 @@ while True:
   
   line1 = get_ip(interface).rjust(16)
   line2 = '{}{:9d} pkt/s'.format(indicator, rx_packets_delta)
-  lcd.lcd_puts(line1, 1)
-  lcd.lcd_puts(line2, 2)
+  lcd.printline(0, line1)
+  lcd.printline(1, line2)
   time.sleep(1)
