@@ -9,8 +9,8 @@ echo "Set eth0 to promiscious mode"
 ifconfig eth0 promisc
 
 echo "Starting lighttpd"
-#rm -f /var/www/htdocs/index.html
-#sed -i '/^dir-listing.activate/c\dir-listing.activate\ =\ \"enabled\"' /usr/local/etc/lighttpd/conf.d/dirlisting.conf
+rm -f /var/www/htdocs/index.html
+#sed -i '/^dir-listing.activate/c\dir-listing.activate\ =\ \"enable\"' /usr/local/etc/lighttpd/conf.d/dirlisting.conf
 /usr/local/etc/init.d/lighttpd start
 # add symlinks for dumps
 for i in `seq 0 3`; do ln -s /tmp/tcpdumps/tcpdump_eth0_$i /var/www/htdocs/tcpdump_eth0_$i.pcap; done
