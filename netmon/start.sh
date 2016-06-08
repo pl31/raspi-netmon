@@ -15,12 +15,12 @@ pgrep -f netmon.py && pkill -f netmon.py
 echo "Starting netmon..." >> $LOGFILE
 ( $DIR/netmon.py &> /tmp/netmon.log ) &
 
-echo "Starting mongoose"
+echo "Starting lighttpd"
 mkdir -p /tmp/tcpdumps/www
-mongoose -document_root /tmp/tcpdumps/www -listening_ports 8080 &
+/usr/local/etc/init.d/lighttpd start
 # add symlinks for dumps
 for i in `seq 0 3`; do ln -s /tmp/tcpdumps/tcpdump_eth0_$i /tmp/tcpdumps/www/tcpdump_eth0_$i.pcap; done
 echo "Start tcpdump"
-tcpdump.4.5.1 -n -U -s 0 -i eth0 -W 4 -C 32M -w /tmp/tcpdumps/tcpdump_eth0_ "not ether host $(cat /sys/class/net/eth0/address)" &
+tcpdump -n -U -s 0 -i eth0 -W 4 -C 32M -w /tmp/tcpdumps/tcpdump_eth0_ "not ether host $(cat /sys/class/net/eth0/address)" &
 
 echo "Start sequence finished" >> $LOGFILE
