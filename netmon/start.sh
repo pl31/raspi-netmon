@@ -10,10 +10,10 @@ echo "Set eth0 to promiscious mode" >> $LOGFILE
 ifconfig eth0 promisc
 
 echo "Starting lighttpd"
-mkdir -p /tmp/tcpdumps/www
+rm /var/www/htdocs/index.html
 /usr/local/etc/init.d/lighttpd start
 # add symlinks for dumps
-for i in `seq 0 3`; do ln -s /tmp/tcpdumps/tcpdump_eth0_$i /tmp/tcpdumps/www/tcpdump_eth0_$i.pcap; done
+for i in `seq 0 3`; do ln -s /tmp/tcpdumps/tcpdump_eth0_$i /var/www/htdocs/tcpdump_eth0_$i.pcap; done
 echo "Start tcpdump"
 tcpdump -n -U -s 0 -i eth0 -W 4 -C 32M -w /tmp/tcpdumps/tcpdump_eth0_ "not ether host $(cat /sys/class/net/eth0/address)" &
 
