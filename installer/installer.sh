@@ -7,7 +7,7 @@ tce-load -wi git iproute2 python py-smbus
 
 echo "---> Freshly clone repository to home folder"
 rm -rf /home/tc/raspi-netmon/
-git clone https://github.com/pl31/raspi-netmon.git /home/tc/raspi-netmon/
+git clone --depth=1 https://github.com/pl31/raspi-netmon.git /home/tc/raspi-netmon/
 
 echo "---> Add start command to /opt/bootlocal.sh"
 BOOTLOCAL="/opt/bootlocal.sh"
