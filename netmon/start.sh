@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+DIR=`dirname "$0"`
 
 set -e
 
@@ -9,6 +10,6 @@ echo "Running $1" > $LOGFILE
 echo "Killing any old processes..." >> $LOGFILE
 pgrep -f netmon.py && pkill -f netmon.py
 echo "Starting netmon..." >> $LOGFILE
-( ~/raspi-netmon/netmon/netmon.py &> /tmp/netmon.log ) &
+( $DIR/netmon.py &> /tmp/netmon.log ) &
 
 echo "Start sequence finished" >> $LOGFILE
