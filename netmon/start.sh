@@ -3,4 +3,4 @@
 
 # remove running instances and start netmon async
 pkill -f netmon.py
-~/raspi/netmon/netmon.py &
+~/raspi-netmon/netmon/netmon.py &
