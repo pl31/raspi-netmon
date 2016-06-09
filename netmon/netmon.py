@@ -27,7 +27,7 @@ def get_ip(interface):
     return matches[0]
   return '-.-.-.-'
 
-lcd = liquidcrystal_i2c.LiquidCrystal_I2C(0x27,1)
+lcd = liquidcrystal_i2c.LiquidCrystal_I2C(0x27,1, clear=False)
 
 interface = 'eth0'
 last_rx_packets = get_rx_packets(interface)
