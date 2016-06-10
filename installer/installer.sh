@@ -11,6 +11,7 @@ git clone --depth=1 https://github.com/pl31/raspi-netmon.git /home/tc/raspi-netm
 
 echo "---> Install missing modules"
 # clone
+rm -rf /home/tc/python-liquidcrystal_i2c/
 git clone --depth=1 https://github.com/pl31/python-liquidcrystal_i2c.git
 # compile to egg
 (cd /home/tc/python-liquidcrystal_i2c && python setup.py bdist_egg)
