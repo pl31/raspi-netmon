@@ -4,6 +4,9 @@ import time
 import sys
 import subprocess
 import re
+import pkg_resources
+
+pkg_resource.require('liquidcrystal_i2c')
 import liquidcrystal_i2c
 
 def get_rx_packets(interface):
