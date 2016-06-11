@@ -22,6 +22,7 @@ tcpdump -n -U -s 0 -i eth0 -W 4 -C 32M -w /tmp/tcpdumps/tcpdump_eth0_ "not ether
 echo "Killing any old processes..."
 pgrep -f netmon.py && pkill -f netmon.py
 echo "Starting netmon..."
-( $DIR/netmon.py &> /tmp/netmon.log ) &
+# ensure library-path as started as root during boot (same as sudo -H)
+PYTHONPATH=/home/tc/.local/lib/python2.7/site-packages ( $DIR/netmon.py &> /tmp/netmon.log ) &
 
 echo "Start sequence finished"
