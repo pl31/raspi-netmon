@@ -4,19 +4,14 @@ echo "---> Running netmon installer"
 
 echo "---> Install required packages"
 tce-load -wi git iproute2 python python-setuptools py-smbus lighttpd tcpdump libcap-ng libnl
+sudo python -m ensurepip
+sudo pip install --upgrade pip
+echo "---> Install liquidcrystal_i2c"
+sudo pip install https://github.com/pl31/python-liquidcrystal_i2c/archive/master.zip
 
 echo "---> Freshly clone repository to home folder"
 rm -rf /home/tc/raspi-netmon/
 git clone --depth=1 https://github.com/pl31/raspi-netmon.git /home/tc/raspi-netmon/
-
-echo "---> Install missing modules"
-# clone
-rm -rf /home/tc/python-liquidcrystal_i2c/
-git clone --depth=1 https://github.com/pl31/python-liquidcrystal_i2c.git
-# compile to egg
-(cd /home/tc/python-liquidcrystal_i2c && python setup.py bdist_egg)
-# copy to netmon script
-cp /home/tc/python-liquidcrystal_i2c/dist/*.egg /home/tc/raspi-netmon/netmon
 
 echo "---> Add start command to /opt/bootlocal.sh"
 BOOTLOCAL="/opt/bootlocal.sh"
