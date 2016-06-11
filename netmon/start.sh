@@ -23,6 +23,6 @@ echo "Killing any old processes..."
 pgrep -f netmon.py && pkill -f netmon.py
 echo "Starting netmon..."
 # ensure library-path as started as root during boot (same as sudo -H)
-( PYTHONPATH=/home/tc/.local/lib/python2.7/site-packages $DIR/netmon.py &> /tmp/netmon.log ) &
+( PYTHONPATH=$(find /home/tc/.local/lib/python2.7/site-packages/liquidcrystal*.egg) $DIR/netmon.py &> /tmp/netmon.log ) &
 
 echo "Start sequence finished"
