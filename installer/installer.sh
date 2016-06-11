@@ -4,10 +4,11 @@ echo "---> Running netmon installer"
 
 echo "---> Install required packages"
 tce-load -wi git iproute2 python python-setuptools py-smbus lighttpd tcpdump libcap-ng libnl
+# pip will not be stored on the device as its not inside /opt/.filelist
 sudo -H python -m ensurepip
 sudo -H pip install --upgrade pip
 echo "---> Install liquidcrystal_i2c"
-sudo -H pip install https://github.com/pl31/python-liquidcrystal_i2c/archive/master.zip
+pip install --user https://github.com/pl31/python-liquidcrystal_i2c/archive/master.zip
 
 echo "---> Freshly clone repository to home folder"
 rm -rf /home/tc/raspi-netmon/
