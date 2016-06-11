@@ -18,11 +18,18 @@ echo "Start tcpdump"
 mkdir -p /tmp/tcpdumps
 tcpdump -n -U -s 0 -i eth0 -W 4 -C 32M -w /tmp/tcpdumps/tcpdump_eth0_ "not ether host $(cat /sys/class/net/eth0/address)" &
 
+# create i2c groups
+addgroup i2c
+chown root:i2c /dev/i2c-*
+chmod 660 /dev/i2c-*
+# tc is member of group i2c
+adduser tc i2c
+
 # remove running instances and start netmon async
 echo "Killing any old processes..."
 pgrep -f netmon.py && pkill -f netmon.py
 echo "Starting netmon..."
-# ensure library-path as started as root during boot (same as sudo -H)
-( PYTHONPATH=$(find /home/tc/.local/lib/python2.7/site-packages/liquidcrystal*.egg) $DIR/netmon.py &> /tmp/netmon.log ) &
+# run as user "tc"
+( sudo -H -u tc $DIR/netmon.py &> /tmp/netmon.log ) &
 
 echo "Start sequence finished"
