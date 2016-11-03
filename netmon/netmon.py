@@ -6,6 +6,7 @@ import datetime
 import sys
 import subprocess
 import re
+import math
 import netifaces
 import liquidcrystal_i2c
 
@@ -77,13 +78,14 @@ while True:
   lcd.printline(1, linePkts)
 
   if args.height >= 3:
-    lineNow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M").rjust(args.width)
+#    lineNow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M").rjust(args.width)
+    lineNow = ' ' * args.width
     lcd.printline(2, lineNow)
 
   if args.height >= 4:
     lineChart = ''
     for pkts in last_n_rx_packets_delta:
-      index = int(min(pkts / 25, 8))  # between 0 - 8
+      index = 0 if pkts ==0 else int(min(math.log(pkts,4), 8))  # between 0 - 8
       lineChart += chars[index]
     lcd.printline(3, lineChart)
 
