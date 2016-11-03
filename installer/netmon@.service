@@ -2,7 +2,7 @@
 Description=netmon
 
 [Service]
-ExecStart=/usr/bin/python3 -u netmon.py -x 20 -y 4
+ExecStart=/usr/bin/python3 -u netmon.py -s %i
 WorkingDirectory=/home/pi/raspi-netmon/netmon
 StandardOutput=inherit
 StandardError=inherit

@@ -33,9 +33,11 @@ def get_ip(interface):
 # Parse arguments
 parser = argparse.ArgumentParser(description='Package monitoring')
 requiredNamed = parser.add_argument_group('required named arguments')
-requiredNamed.add_argument('-x', '--width', help='Display width', type=int, required=True)
-requiredNamed.add_argument('-y', '--height', help='Display height', type=int, required=True)
+requiredNamed.add_argument('-s', '--size', help='Display size, e.g. 20x4', required=True)
 args = parser.parse_args()
+
+width = int(args.size.split('x')[0])
+height = int(args.size.split('x')[1])
 
 # default values
 interface = 'eth0'
@@ -57,7 +59,7 @@ for c in range(0,8):
   chars.append(chr(c))
 
 # initial values
-last_n_rx_packets_delta = [0] * args.width
+last_n_rx_packets_delta = [0] * width
 last_rx_packets = get_rx_packets(interface)
 time.sleep(1)
 indicator = get_indicator()
@@ -71,18 +73,18 @@ while True:
 
   indicator = get_indicator(indicator)
 
-  lineIP = get_ip(interface).rjust(args.width)
-  linePkts = '{}{}{:9d} pkt/s'.format(indicator, ' ' * (args.width-16), rx_packets_delta)
+  lineIP = get_ip(interface).rjust(width)
+  linePkts = '{}{}{:9d} pkt/s'.format(indicator, ' ' * (width-16), rx_packets_delta)
 
   lcd.printline(0, lineIP)
   lcd.printline(1, linePkts)
 
-  if args.height >= 3:
-#    lineNow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M").rjust(args.width)
-    lineNow = ' ' * args.width
+  if height >= 3:
+#    lineNow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M").rjust(width)
+    lineNow = ' ' * width
     lcd.printline(2, lineNow)
 
-  if args.height >= 4:
+  if height >= 4:
     lineChart = ''
     for pkts in last_n_rx_packets_delta:
       index = 0 if pkts ==0 else int(min(math.log(pkts,4), 8))  # between 0 - 8

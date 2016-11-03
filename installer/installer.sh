@@ -26,8 +26,8 @@ sudo cp ~/raspi-netmon/installer/promiscuous@.service /etc/systemd/system
 sudo systemctl enable promiscuous@eth0.service
 
 echo "---> Add netmon as systemd service"
-sudo cp ~/raspi-netmon/installer/netmon.service /etc/systemd/system
-sudo systemctl enable netmon.service
+sudo cp ~/raspi-netmon/installer/netmon@.service /etc/systemd/system
+sudo systemctl enable netmon@20x4.service
 
 echo "---> Enable tmpfs for tcpdump"
 sudo cp ~/raspi-netmon/installer/var-run-tcpdump_eth0.mount /etc/systemd/system
