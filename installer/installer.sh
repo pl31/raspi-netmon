@@ -13,7 +13,7 @@ git clone --depth=1 https://github.com/pl31/raspi-netmon.git /home/tc/raspi-netm
 
 echo "---> Add start command to /opt/bootlocal.sh"
 BOOTLOCAL="/opt/bootlocal.sh"
-grep -q "# c0f40bf8" $BOOTLOCAL || echo '/home/tc/raspi-netmon/netmon/start.sh > /tmp/start_netmon.log	# c0f40bf8' >> $BOOTLOCAL
+grep -q "# c0f40bf8" $BOOTLOCAL || echo '/home/tc/raspi-netmon/netmon/start.sh &> /tmp/start_netmon.log	# c0f40bf8' >> $BOOTLOCAL
 
 echo "---> backup to SD-Card"
 filetool.sh -b
