@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import argparse
 import time
 import sys
 import subprocess
@@ -27,6 +28,14 @@ def get_ip(interface):
     return matches[0]
   return '-.-.-.-'
 
+# Parse arguments
+parser = argparse.ArgumentParser(description='Package monitoring')
+requiredNamed = parser.add_argument_group('required named arguments')
+requiredNamed.add_argument('-x', '--width', help='Display width', type=int, required=True)
+requiredNamed.add_argument('-y', '--height', help='Display height', type=int, required=True)
+args = parser.parse_args()
+
+
 lcd = liquidcrystal_i2c.LiquidCrystal_I2C(0x27,1, clear=False)
 
 interface = 'eth0'
@@ -42,8 +51,11 @@ while True:
 
   indicator = get_indicator(indicator)
   
-  line1 = get_ip(interface).rjust(16)
-  line2 = '{}{:9d} pkt/s'.format(indicator, rx_packets_delta)
-  lcd.printline(0, line1)
-  lcd.printline(1, line2)
+  lineIP = get_ip(interface).rjust(args.width)
+  linePkts = '{}{}{:9d} pkt/s'.format(indicator, ' ' * (args.width-16), rx_packets_delta)
+
+  lcd.printline(0, lineIP)
+  for i in range(1, args.height - 2):
+    lcd.printline(i, ' ' * args.width)
+  lcd.printline(args.height - 1, linePkts)
   time.sleep(1)
