@@ -19,7 +19,7 @@ mkdir -p /tmp/tcpdumps
 tcpdump -n -U -s 0 -i eth0 -W 4 -C 32M -w /tmp/tcpdumps/tcpdump_eth0_ "not ether host $(cat /sys/class/net/eth0/address)" &
 
 echo "---> Create i2c group"
-addgroup i2c
+addgroup i2c || echo Error creating group i2c (already exists?)
 chown root:i2c /dev/i2c-*
 chmod 660 /dev/i2c-*
 # tc is member of group i2c
