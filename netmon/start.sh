@@ -30,6 +30,6 @@ echo "---> Killing any old processes..."
 pgrep -f netmon.py && pkill -f netmon.py
 echo "---> Starting netmon..."
 # run as user "tc"
-( sudo -H -u tc $DIR/netmon.py &> /tmp/netmon.log ) &
+( sudo -H -u tc $DIR/netmon.py -x 20 -y 4 &> /tmp/netmon.log ) &
 
 echo "---> Start sequence finished"
