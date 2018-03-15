@@ -3,7 +3,9 @@
 echo "---> Running netmon installer"
 
 echo "---> Install required packages"
-tce-load -wi git iproute2 python python-setuptools py-smbus lighttpd tcpdump libcap-ng libnl
+tce-load -wi git iproute2 python py-smbus lighttpd tcpdump libcap-ng libnl
+echo "---> Install setuptools"
+wget https://bitbucket.org/pypa/setuptools/raw/0.8/ez_setup.py -O - | sudo python
 echo "---> Install liquidcrystal_i2c"
 python -m easy_install --user https://github.com/pl31/python-liquidcrystal_i2c/archive/master.zip
 
