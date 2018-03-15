@@ -7,7 +7,7 @@ tce-load -wi git iproute2 python tcpdump libcap-ng libnl
 echo "---> Install setuptools"
 wget https://bitbucket.org/pypa/setuptools/raw/0.8/ez_setup.py -O - | sudo python
 echo "---> Install missing modules"
-python -m easy_install --user smbus
+python -m easy_install --user smbus2
 python -m easy_install --user https://github.com/pl31/python-liquidcrystal_i2c/archive/master.zip
 
 echo "---> Freshly clone repository to home folder"
