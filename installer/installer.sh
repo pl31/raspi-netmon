@@ -16,7 +16,7 @@ echo "---> Add netmon as systemd service"
 sudo cp ~/raspi-netmon/installer/netmon.service /etc/systemd/system
 sudo systemctl enable netmon.service
 
-echo "---> Set promiscuous mode fro eth0"
+echo "---> Set promiscuous mode for eth0"
 sudo cp ~/raspi-netmon/installer/promiscuous@.service /etc/systemd/system
 sudo systemctl enable promiscuous@eth0.service
 
