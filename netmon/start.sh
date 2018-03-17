@@ -18,18 +18,11 @@ ifconfig eth0 promisc
 #mkdir -p /tmp/tcpdumps
 #tcpdump -n -U -s 0 -i eth0 -W 4 -C 32M -w /tmp/tcpdumps/tcpdump_eth0_ "not ether host $(cat /sys/class/net/eth0/address)" &
 
-echo "---> Create i2c group"
-addgroup i2c || echo "Error creating group i2c (already exists?)"
-chown root:i2c /dev/i2c-*
-chmod 660 /dev/i2c-*
-# tc is member of group i2c
-adduser tc i2c
-
 # remove running instances and start netmon async
 echo "---> Killing any old processes..."
 pgrep -f netmon.py && pkill -f netmon.py
 echo "---> Starting netmon..."
 # run as user "tc"
-( sudo -H -u tc $DIR/netmon.py -x 20 -y 4 &> /tmp/netmon.log ) &
+( sudo -H -u pi $DIR/netmon.py -x 20 -y 4 &> /tmp/netmon.log ) &
 
 echo "---> Start sequence finished"
