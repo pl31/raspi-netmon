@@ -5,9 +5,11 @@ import time
 import sys
 import subprocess
 import re
+import netifaces
 import liquidcrystal_i2c
 
 def get_rx_packets(interface):
+  return 0
   f_name = '/sys/class/net/{}/statistics/rx_packets'.format(interface)
   with open(f_name) as f:
     return int(f.read().strip())
@@ -21,12 +23,11 @@ def get_indicator(indicator=None):
     return '-'
 
 def get_ip(interface):
-  cmd = 'ip -4 -o addr show eth0'.split()
-  stdout = subprocess.check_output(cmd)
-  matches = re.findall('.*inet ([0-9\.]*)', stdout)
-  if matches:
-    return matches[0]
-  return '-.-.-.-'
+  netifaces.ifaddresses('eth0')
+  try:
+    return netifaces.ifaddresses('eth0')[ni.AF_INET][0]['addr']
+  except:
+    return '-.-.-.-'
 
 # Parse arguments
 parser = argparse.ArgumentParser(description='Package monitoring')
