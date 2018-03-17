@@ -25,7 +25,7 @@ def get_indicator(indicator=None):
 def get_ip(interface):
   netifaces.ifaddresses('eth0')
   try:
-    return netifaces.ifaddresses('eth0')[ni.AF_INET][0]['addr']
+    return netifaces.ifaddresses('eth0')[netifaces.AF_INET][0]['addr']
   except:
     return '-.-.-.-'
 
