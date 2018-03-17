@@ -9,7 +9,6 @@ import netifaces
 import liquidcrystal_i2c
 
 def get_rx_packets(interface):
-  return 0
   f_name = '/sys/class/net/{}/statistics/rx_packets'.format(interface)
   with open(f_name) as f:
     return int(f.read().strip())
