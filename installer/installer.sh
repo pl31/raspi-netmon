@@ -29,7 +29,7 @@ sudo systemctl enable netmon.service
 
 echo "---> Enable tmpfs for tcpdump"
 sudo cp ~/raspi-netmon/installer/var-run-tcpdump_eth0.mount /etc/systemd/system
-sudo sysctl enable var-run-tcpdump_eth0.mount
+sudo systemctl enable var-run-tcpdump_eth0.mount
 sudo systemctl start var-run-tcpdump_eth0.mount
 echo "---> Create symbolic links for tcpdump"
 sudo sh -c 'for i in `seq 0 3`; do ln -s /var/run/tcpdump_eth0/tcpdump_eth0_$i /var/www/html/tcpdump_eth0_$i.pcap; done' || true
