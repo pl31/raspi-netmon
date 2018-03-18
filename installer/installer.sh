@@ -10,7 +10,7 @@ sudo apt install -y git lighttpd tcpdump python3-setuptools python3-setuptools-g
 
 echo "---> Configure webserver"
 sudo rm -f /var/www/html/index.lighttpd.html
-sudo lighttpd-enable-mod dir-listing
+sudo lighttpd-enable-mod dir-listing || true
 
 echo "---> Enable tmpfs for tcpdump"
 sudo cp ~/raspi-netmon/installer/var-run-tcpdump_eth0.mount /etc/systemd/system
