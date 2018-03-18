@@ -13,7 +13,7 @@ sudo rm -f /var/www/html/index.lighttpd.html
 sudo lighttpd-enable-mod dir-listing
 
 echo "---> Enable tmpfs for tcpdump"
-sudo cp ~/raspi-netmon/installer/var-run-tcpdump_eth0.mount
+sudo cp ~/raspi-netmon/installer/var-run-tcpdump_eth0.mount /etc/systemd/system
 sudo sysctl enable var-run-tcpdump_eth0.mount
 sudo sysctl start var-run-tcpdump_eth0.mount
 echo "---> Create symbolic links for tcpdump"
