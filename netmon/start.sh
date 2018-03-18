@@ -17,6 +17,7 @@ ifconfig eth0 promisc
 #echo "---> Start tcpdump"
 #mkdir -p /tmp/tcpdumps
 #tcpdump -n -U -s 0 -i eth0 -W 4 -C 32M -w /tmp/tcpdumps/tcpdump_eth0_ "not ether host $(cat /sys/class/net/eth0/address)" &
+##new: tcpdump -n -U -s 0 -i eth0 -W 4 -C 32M -w /var/run/tcpdump_eth0/tcpdump_eth0_ "not ether host $(cat /sys/class/net/eth0/address)"
 
 # remove running instances and start netmon async
 echo "---> Killing any old processes..."
