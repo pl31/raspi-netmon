@@ -11,6 +11,8 @@ sudo apt install -y git lighttpd tcpdump python3-setuptools python3-setuptools-g
 echo "---> Configure webserver"
 sudo rm -f /var/www/html/index.lighttpd.html
 sudo lighttpd-enable-mod dir-listing || true
+# disable logging for ro filesystem
+sudo sed '/^server.errorlog/s/^/#/g' -i /etc/lighttpd/lighttpd.conf
 
 echo "---> Install missing modules"
 sudo python3 -m easy_install git+https://github.com/pl31/python-liquidcrystal_i2c.git

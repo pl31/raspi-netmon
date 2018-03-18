@@ -13,5 +13,7 @@ Download and execute the installer:
 wget -O - https://raw.githubusercontent.com/pl31/raspi-netmon/master/installer/installer.sh | sh
 ```
 
-
-
+If happy with the result, make SD-Card read-only:
+```
+sudo bash -c "$(wget -O - https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/read-only-fs.sh)"
+```
