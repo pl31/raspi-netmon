@@ -55,7 +55,7 @@ while True:
   linePkts = '{}{}{:9d} pkt/s'.format(indicator, ' ' * (args.width-16), rx_packets_delta)
 
   lcd.printline(0, lineIP)
-  for i in range(1, args.height - 2):
+  lcd.printline(1, linePkts)
+  for i in range(2, args.height - 1):
     lcd.printline(i, ' ' * args.width)
-  lcd.printline(args.height - 1, linePkts)
   time.sleep(1)
