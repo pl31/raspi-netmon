@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Fail fast
+set -e
+
 echo "---> Running netmon installer"
 
 echo "---> Install required packages"
