@@ -36,19 +36,37 @@ requiredNamed.add_argument('-x', '--width', help='Display width', type=int, requ
 requiredNamed.add_argument('-y', '--height', help='Display height', type=int, required=True)
 args = parser.parse_args()
 
-
-lcd = liquidcrystal_i2c.LiquidCrystal_I2C(0x27,1, clear=False)
-
+# default values
 interface = 'eth0'
+
+# Initialize display
+lcd = liquidcrystal_i2c.LiquidCrystal_I2C(0x27,1, clear=False)
+# create block characters for charting
+for c in range(0,8):
+  rows = []
+  for r in range(0,8):
+    if r <= c:
+      rows.append(0x1f)
+    else:
+      rows.append(0x00)
+  lcd.createChar(c,rows[::-1])
+# create block char array
+chars = [ ' ' ]
+for c in range(0,8):
+  chars.append(chr(c))
+
+# initial values
+last_n_rx_packets_delta = [0] * args.width
 last_rx_packets = get_rx_packets(interface)
 time.sleep(1)
-
 indicator = get_indicator()
 
 while True:
   rx_packets = get_rx_packets(interface)
   rx_packets_delta = rx_packets - last_rx_packets
   last_rx_packets = rx_packets
+  last_n_rx_packets_delta.pop(0)
+  last_n_rx_packets_delta.append(rx_packets_delta)
 
   indicator = get_indicator(indicator)
 
@@ -63,6 +81,10 @@ while True:
     lcd.printline(2, lineNow)
 
   if args.height >= 4:
-    lcd.printline(3, ' ░▒▓█'.rjust(args.width))
+    lineChart = ''
+    for pkts in last_n_rx_packets_delta:
+      index = int(min(pkts / 25, 8))  # between 0 - 8
+      lineChart += chars[index]
+    lcd.printline(3, lineChart)
 
   time.sleep(1)
