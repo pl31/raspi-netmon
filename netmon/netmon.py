@@ -2,6 +2,7 @@
 
 import argparse
 import time
+import datetime
 import sys
 import subprocess
 import re
@@ -50,12 +51,18 @@ while True:
   last_rx_packets = rx_packets
 
   indicator = get_indicator(indicator)
-  
+
   lineIP = get_ip(interface).rjust(args.width)
   linePkts = '{}{}{:9d} pkt/s'.format(indicator, ' ' * (args.width-16), rx_packets_delta)
 
   lcd.printline(0, lineIP)
   lcd.printline(1, linePkts)
-  for i in range(2, args.height - 1):
-    lcd.printline(i, ' ' * args.width)
+
+  if args.height >= 3:
+    lineNow = datetime.datetime.now().strftime("%Y-%m-%d %H:%M").rjust(args.width)
+    lcd.printline(2, lineNow)
+
+  if args.height >= 4:
+    lcd.printline(3, ' ' * args.width)
+
   time.sleep(1)
