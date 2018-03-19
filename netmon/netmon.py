@@ -63,6 +63,6 @@ while True:
     lcd.printline(2, lineNow)
 
   if args.height >= 4:
-    lcd.printline(3, ' ' * args.width)
+    lcd.printline(3, ' ░▒▓█'.rjust(args.width))
 
   time.sleep(1)
